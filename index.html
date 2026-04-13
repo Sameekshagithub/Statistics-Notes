@@ -1,0 +1,488 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Serif+4:wght@300;400;600&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body,html{background:#fff;color:#0d2a4e}
+  .page{background:#fff;font-family:'Source Serif 4',Georgia,serif;color:#0d2a4e;padding:2.5rem 2rem;max-width:900px;margin:0 auto}
+  .header{background:#0d2a4e;color:#fff;border-radius:12px;padding:2rem 2.5rem;margin-bottom:2rem;position:relative;overflow:hidden}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border:2px solid rgba(255,255,255,0.1);border-radius:50%}
+  .header::before{content:'';position:absolute;bottom:-60px;right:60px;width:260px;height:260px;border:2px solid rgba(255,255,255,0.06);border-radius:50%}
+  .header-badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7db8f5;font-family:'Source Serif 4',serif;font-weight:600;margin-bottom:.5rem}
+  .header h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;line-height:1.1;color:#fff;margin-bottom:.4rem}
+  .header-sub{font-size:.95rem;color:#a8caed;margin-bottom:1.2rem}
+  .author-tag{display:inline-block;background:rgba(125,184,245,0.18);border:1px solid rgba(125,184,245,0.4);color:#7db8f5;font-size:.82rem;padding:5px 16px;border-radius:20px;letter-spacing:.5px}
+  .toc{background:#f4f8ff;border:1px solid #c4d9f5;border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:2rem}
+  .toc-title{font-family:'Playfair Display',serif;font-size:1rem;color:#0d2a4e;font-weight:700;margin-bottom:.7rem;letter-spacing:.3px}
+  .toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px 16px}
+  .toc-item{font-size:.83rem;color:#185fa5;padding:3px 0;cursor:pointer;text-decoration:none}
+  .toc-item:hover{color:#0d2a4e;text-decoration:underline}
+  .section{margin-bottom:2rem}
+  .section-header{background:#0d2a4e;color:#fff;border-radius:8px 8px 0 0;padding:.6rem 1.2rem;display:flex;align-items:center;gap:10px}
+  .section-num{background:#7db8f5;color:#0d2a4e;font-size:.75rem;font-weight:700;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .section-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:#fff}
+  .section-body{border:1px solid #c4d9f5;border-top:none;border-radius:0 0 8px 8px;padding:1.2rem 1.4rem;background:#fff}
+  .subsec{margin-bottom:1rem}
+  .subsec-title{font-size:.88rem;font-weight:600;color:#185fa5;text-transform:uppercase;letter-spacing:.7px;margin-bottom:.35rem;font-family:'Source Serif 4',serif}
+  .subsec p{font-size:.9rem;line-height:1.7;color:#1a3559;margin-bottom:.3rem}
+  .formula-box{background:#eef5ff;border-left:3px solid #185fa5;border-radius:0 6px 6px 0;padding:.7rem 1rem;margin:.5rem 0;font-family:'Courier New',monospace;font-size:.88rem;color:#0d2a4e}
+  .formula-label{font-size:.75rem;color:#185fa5;font-weight:600;font-family:'Source Serif 4',serif;margin-bottom:.2rem;font-style:italic}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.5rem 0}
+  .mini-card{background:#f4f8ff;border:1px solid #c4d9f5;border-radius:7px;padding:.8rem 1rem}
+  .mini-card-title{font-size:.8rem;font-weight:600;color:#0d2a4e;margin-bottom:.3rem}
+  .mini-card p{font-size:.82rem;color:#2a4a72;line-height:1.55}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:.4rem 0}
+  .tag{background:#0d2a4e;color:#7db8f5;font-size:.75rem;padding:3px 10px;border-radius:12px;font-weight:500}
+  .tag.light{background:#dbeafe;color:#0d2a4e}
+  table{width:100%;border-collapse:collapse;font-size:.83rem;margin:.5rem 0}
+  th{background:#0d2a4e;color:#7db8f5;padding:7px 10px;text-align:left;font-weight:600;font-family:'Source Serif 4',serif}
+  td{padding:6px 10px;border-bottom:1px solid #dbeafe;color:#1a3559}
+  tr:last-child td{border-bottom:none}
+  tr:nth-child(even) td{background:#f4f8ff}
+  .note-box{background:#fff8e6;border:1px solid #f5c842;border-radius:7px;padding:.7rem 1rem;margin:.5rem 0;font-size:.85rem;color:#4a3800}
+  .note-box strong{color:#7a5e00}
+  .footer{margin-top:2.5rem;text-align:center;border-top:1px solid #c4d9f5;padding-top:1.2rem;font-size:.8rem;color:#7a9ac5}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr}.header h1{font-size:1.7rem}}
+</style>
+
+<div class="page">
+  <div class="header">
+    <div class="header-badge">Study Notes</div>
+    <h1>Statistics for Artificial Intelligence</h1>
+    <div class="header-sub">Complete reference notes covering all core statistical concepts used in AI & ML</div>
+    <span class="author-tag">Prepared by Sameeksha</span>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#s1">1. Descriptive Statistics</a>
+      <a class="toc-item" href="#s2">2. Probability Theory</a>
+      <a class="toc-item" href="#s3">3. Distributions</a>
+      <a class="toc-item" href="#s4">4. Statistical Inference</a>
+      <a class="toc-item" href="#s5">5. Hypothesis Testing</a>
+      <a class="toc-item" href="#s6">6. Regression Analysis</a>
+      <a class="toc-item" href="#s7">7. Bayesian Statistics</a>
+      <a class="toc-item" href="#s8">8. Information Theory</a>
+      <a class="toc-item" href="#s9">9. Dimensionality Reduction</a>
+      <a class="toc-item" href="#s10">10. Model Evaluation</a>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section" id="s1">
+    <div class="section-header"><span class="section-num">1</span><span class="section-title">Descriptive Statistics</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Measures of Central Tendency</div>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">Mean (μ)</div>
+            <p>Sum of all values divided by count. Sensitive to outliers.</p>
+            <div class="formula-box">μ = (Σxᵢ) / n</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">Median</div>
+            <p>Middle value when sorted. Robust to outliers. Preferred for skewed data.</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">Mode</div>
+            <p>Most frequently occurring value. Can be multi-modal. Used in categorical data.</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">Weighted Mean</div>
+            <p>Each value has a weight. Critical in ensemble models.</p>
+            <div class="formula-box">μ_w = Σ(wᵢxᵢ) / Σwᵢ</div>
+          </div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Measures of Spread</div>
+        <div class="two-col">
+          <div>
+            <div class="formula-label">Variance (σ²)</div>
+            <div class="formula-box">σ² = Σ(xᵢ - μ)² / n</div>
+            <div class="formula-label">Standard Deviation (σ)</div>
+            <div class="formula-box">σ = √[Σ(xᵢ - μ)² / n]</div>
+          </div>
+          <div>
+            <div class="formula-label">Interquartile Range (IQR)</div>
+            <div class="formula-box">IQR = Q3 - Q1</div>
+            <div class="formula-label">Coefficient of Variation</div>
+            <div class="formula-box">CV = (σ / μ) × 100%</div>
+          </div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Shape Descriptors</div>
+        <p><strong>Skewness:</strong> Measures asymmetry. Positive skew → tail right. Negative skew → tail left.</p>
+        <p><strong>Kurtosis:</strong> Measures tail heaviness. Leptokurtic (>3) = fat tails. Platykurtic (<3) = thin tails.</p>
+        <div class="formula-box">Skewness = E[(X - μ)³] / σ³ &nbsp;&nbsp; | &nbsp;&nbsp; Kurtosis = E[(X - μ)⁴] / σ⁴</div>
+      </div>
+      <div class="note-box"><strong>AI Relevance:</strong> Feature scaling (standardization, normalization), outlier detection, and data cleaning all rely on descriptive statistics.</div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="s2">
+    <div class="section-header"><span class="section-num">2</span><span class="section-title">Probability Theory</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Fundamentals</div>
+        <div class="tag-row">
+          <span class="tag">Sample Space Ω</span><span class="tag">Event A ⊆ Ω</span><span class="tag">0 ≤ P(A) ≤ 1</span><span class="tag">P(Ω) = 1</span>
+        </div>
+        <div class="formula-box">Addition Rule: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</div>
+        <div class="formula-box">Complement: P(Aᶜ) = 1 - P(A)</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Conditional Probability & Independence</div>
+        <div class="formula-box">P(A | B) = P(A ∩ B) / P(B) &nbsp;&nbsp; [B ≠ ∅]</div>
+        <p>A and B are independent if P(A ∩ B) = P(A)·P(B). Naive Bayes classifier assumes feature independence.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Bayes' Theorem</div>
+        <div class="formula-box">P(A | B) = P(B | A) · P(A) / P(B)</div>
+        <div class="formula-box">Posterior = (Likelihood × Prior) / Evidence</div>
+        <p>Fundamental to Bayesian learning, spam filters, medical diagnosis, and probabilistic graphical models.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Law of Total Probability</div>
+        <div class="formula-box">P(B) = Σᵢ P(B | Aᵢ) · P(Aᵢ) &nbsp;&nbsp; where {Aᵢ} partition Ω</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Expectation & Variance</div>
+        <div class="two-col">
+          <div class="formula-box">E[X] = Σ xᵢ P(xᵢ) &nbsp;(discrete)<br>E[X] = ∫ x f(x) dx &nbsp;(continuous)</div>
+          <div class="formula-box">Var(X) = E[X²] - (E[X])²<br>Var(aX+b) = a² Var(X)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="s3">
+    <div class="section-header"><span class="section-num">3</span><span class="section-title">Probability Distributions</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Discrete Distributions</div>
+        <table>
+          <tr><th>Distribution</th><th>PMF</th><th>Mean</th><th>Variance</th><th>AI Use</th></tr>
+          <tr><td>Bernoulli(p)</td><td>pˣ(1-p)¹⁻ˣ</td><td>p</td><td>p(1-p)</td><td>Binary classification</td></tr>
+          <tr><td>Binomial(n,p)</td><td>C(n,x)pˣ(1-p)ⁿ⁻ˣ</td><td>np</td><td>np(1-p)</td><td>Count outcomes</td></tr>
+          <tr><td>Poisson(λ)</td><td>e⁻ᵏλˣ/x!</td><td>λ</td><td>λ</td><td>Event rates, NLP tokens</td></tr>
+          <tr><td>Geometric(p)</td><td>(1-p)ˣ⁻¹p</td><td>1/p</td><td>(1-p)/p²</td><td>Trials until success</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Continuous Distributions</div>
+        <table>
+          <tr><th>Distribution</th><th>PDF</th><th>Mean</th><th>Variance</th><th>AI Use</th></tr>
+          <tr><td>Normal N(μ,σ²)</td><td>(1/σ√2π)e^(-(x-μ)²/2σ²)</td><td>μ</td><td>σ²</td><td>Weight init, errors</td></tr>
+          <tr><td>Uniform U(a,b)</td><td>1/(b-a)</td><td>(a+b)/2</td><td>(b-a)²/12</td><td>Random initialization</td></tr>
+          <tr><td>Exponential(λ)</td><td>λe^(-λx)</td><td>1/λ</td><td>1/λ²</td><td>Time between events</td></tr>
+          <tr><td>Beta(α,β)</td><td>xᵅ⁻¹(1-x)^(β-1)/B(α,β)</td><td>α/(α+β)</td><td>αβ/(α+β)²(α+β+1)</td><td>Bayesian priors</td></tr>
+          <tr><td>Gamma(α,β)</td><td>βᵅxᵅ⁻¹e⁻ᵝˣ/Γ(α)</td><td>α/β</td><td>α/β²</td><td>Conjugate prior</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Multivariate Normal</div>
+        <div class="formula-box">X ~ N(μ, Σ) &nbsp; PDF: (2π)^(-k/2)|Σ|^(-1/2) exp(-½(x-μ)ᵀΣ⁻¹(x-μ))</div>
+        <p>Used in Gaussian Mixture Models, LDA, Gaussian Processes. Covariance matrix Σ encodes feature correlations.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Central Limit Theorem (CLT)</div>
+        <div class="formula-box">X̄ ~ N(μ, σ²/n) as n → ∞</div>
+        <p>Sample means of any distribution converge to Normal as n grows. Justifies many ML approximations and mini-batch gradient descent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="s4">
+    <div class="section-header"><span class="section-num">4</span><span class="section-title">Statistical Inference</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Point Estimation</div>
+        <p>A statistic θ̂ used to estimate unknown parameter θ.</p>
+        <div class="tag-row">
+          <span class="tag light">Unbiasedness: E[θ̂]=θ</span>
+          <span class="tag light">Consistency: θ̂ →p θ as n→∞</span>
+          <span class="tag light">Efficiency: min variance</span>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Maximum Likelihood Estimation (MLE)</div>
+        <div class="formula-box">θ̂_MLE = argmax_θ L(θ; x) = argmax_θ Σᵢ log p(xᵢ | θ)</div>
+        <p>Foundation of most ML training. Minimizing cross-entropy loss ≡ maximizing log-likelihood for classification.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Maximum A Posteriori (MAP)</div>
+        <div class="formula-box">θ̂_MAP = argmax_θ [log L(θ;x) + log p(θ)]</div>
+        <p>MLE + prior regularization. L2 regularization corresponds to Gaussian prior; L1 to Laplace prior.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Confidence Intervals</div>
+        <div class="formula-box">CI: x̄ ± z_(α/2) · (σ/√n) &nbsp;&nbsp; or &nbsp;&nbsp; x̄ ± t_(α/2, n-1) · (s/√n)</div>
+        <p>A 95% CI means: 95% of such intervals (from repeated sampling) contain the true parameter.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Bias-Variance Tradeoff</div>
+        <div class="formula-box">MSE(θ̂) = Var(θ̂) + [Bias(θ̂)]²</div>
+        <div class="two-col">
+          <div class="mini-card"><div class="mini-card-title">High Bias (Underfitting)</div><p>Model too simple. Large training & test error. More features or model complexity needed.</p></div>
+          <div class="mini-card"><div class="mini-card-title">High Variance (Overfitting)</div><p>Model too complex. Low training, high test error. Regularization, dropout, more data needed.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="s5">
+    <div class="section-header"><span class="section-num">5</span><span class="section-title">Hypothesis Testing</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Framework</div>
+        <div class="two-col">
+          <div class="mini-card"><div class="mini-card-title">H₀ (Null Hypothesis)</div><p>Default assumption. No effect, no difference. We try to reject this.</p></div>
+          <div class="mini-card"><div class="mini-card-title">H₁ (Alternative Hypothesis)</div><p>What we want to prove. There is an effect or difference.</p></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Errors & Significance</div>
+        <table>
+          <tr><th>Type</th><th>Description</th><th>Probability</th></tr>
+          <tr><td>Type I (α)</td><td>Reject true H₀ (False Positive)</td><td>α = significance level</td></tr>
+          <tr><td>Type II (β)</td><td>Fail to reject false H₀ (False Negative)</td><td>β</td></tr>
+          <tr><td>Power (1-β)</td><td>Correctly reject false H₀</td><td>1 - β</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">p-value</div>
+        <p>Probability of observing results as extreme as the data, assuming H₀ is true. Reject H₀ if p < α (usually 0.05).</p>
+        <div class="note-box"><strong>Important:</strong> p-value is NOT the probability that H₀ is true. A low p-value only tells us the data is inconsistent with H₀.</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Common Tests</div>
+        <table>
+          <tr><th>Test</th><th>When to Use</th><th>Statistic</th></tr>
+          <tr><td>z-test</td><td>Known σ, large n</td><td>z = (x̄ - μ₀)/(σ/√n)</td></tr>
+          <tr><td>t-test (one sample)</td><td>Unknown σ, small n</td><td>t = (x̄ - μ₀)/(s/√n)</td></tr>
+          <tr><td>t-test (two sample)</td><td>Compare two means</td><td>Welch's or pooled</td></tr>
+          <tr><td>Chi-squared (χ²)</td><td>Categorical, goodness of fit</td><td>χ² = Σ(O-E)²/E</td></tr>
+          <tr><td>F-test / ANOVA</td><td>Compare 3+ group means</td><td>F = MSbetween / MSwithin</td></tr>
+          <tr><td>Mann-Whitney U</td><td>Non-parametric 2-sample</td><td>Rank-based</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">A/B Testing in ML</div>
+        <p>Used to compare model versions, recommendation algorithms, or UI changes. Requires careful sample size calculation:</p>
+        <div class="formula-box">n = 2 · (z_α/2 + z_β)² · σ² / δ² &nbsp;&nbsp; (δ = desired effect size)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="s6">
+    <div class="section-header"><span class="section-num">6</span><span class="section-title">Regression Analysis</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Simple Linear Regression</div>
+        <div class="formula-box">y = β₀ + β₁x + ε &nbsp;&nbsp; where ε ~ N(0, σ²)</div>
+        <div class="two-col">
+          <div>
+            <div class="formula-label">OLS Estimators</div>
+            <div class="formula-box">β̂₁ = Σ(xᵢ-x̄)(yᵢ-ȳ) / Σ(xᵢ-x̄)²<br>β̂₀ = ȳ - β̂₁x̄</div>
+          </div>
+          <div>
+            <div class="formula-label">R² (Coefficient of Determination)</div>
+            <div class="formula-box">R² = 1 - SS_res/SS_tot = 1 - Σ(yᵢ-ŷᵢ)²/Σ(yᵢ-ȳ)²</div>
+          </div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Multiple Linear Regression</div>
+        <div class="formula-box">y = Xβ + ε &nbsp;&nbsp; β̂ = (XᵀX)⁻¹Xᵀy</div>
+        <p>Assumptions: linearity, homoscedasticity, no multicollinearity, normality of residuals (GAUSS-MARKOV).</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Regularization</div>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">Ridge Regression (L2)</div>
+            <div class="formula-box" style="font-size:.78rem">min ‖y - Xβ‖² + λ‖β‖²</div>
+            <p>Shrinks coefficients. No feature selection. β̂ = (XᵀX + λI)⁻¹Xᵀy</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">Lasso Regression (L1)</div>
+            <div class="formula-box" style="font-size:.78rem">min ‖y - Xβ‖² + λ‖β‖₁</div>
+            <p>Produces sparse solutions. Automatic feature selection. No closed form.</p>
+          </div>
+        </div>
+        <div class="mini-card" style="margin-top:.7rem">
+          <div class="mini-card-title">Elastic Net</div>
+          <div class="formula-box" style="font-size:.8rem">min ‖y - Xβ‖² + λ₁‖β‖₁ + λ₂‖β‖²</div>
+          <p>Combines L1 and L2. Good when features are correlated and sparse solution is desired.</p>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Logistic Regression (Classification)</div>
+        <div class="formula-box">P(y=1|x) = σ(xᵀβ) = 1/(1 + e^(-xᵀβ))</div>
+        <div class="formula-box">Loss: L = -Σ[yᵢ log(p̂ᵢ) + (1-yᵢ) log(1-p̂ᵢ)] &nbsp;(Cross-Entropy)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="section" id="s7">
+    <div class="section-header"><span class="section-num">7</span><span class="section-title">Bayesian Statistics</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Core Principle</div>
+        <div class="formula-box">Posterior ∝ Likelihood × Prior &nbsp;&nbsp; p(θ|X) ∝ p(X|θ) · p(θ)</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Conjugate Priors</div>
+        <table>
+          <tr><th>Likelihood</th><th>Prior</th><th>Posterior</th></tr>
+          <tr><td>Binomial</td><td>Beta(α,β)</td><td>Beta(α+x, β+n-x)</td></tr>
+          <tr><td>Poisson</td><td>Gamma(α,β)</td><td>Gamma(α+Σx, β+n)</td></tr>
+          <tr><td>Normal (known σ²)</td><td>Normal(μ₀,σ₀²)</td><td>Normal (updated)</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Bayesian vs Frequentist</div>
+        <div class="two-col">
+          <div class="mini-card"><div class="mini-card-title">Frequentist</div><p>Parameters are fixed, unknown constants. Probability = long-run frequency. Uses MLE, CIs, p-values.</p></div>
+          <div class="mini-card"><div class="mini-card-title">Bayesian</div><p>Parameters have probability distributions. Probability = degree of belief. Uses posterior, credible intervals.</p></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Markov Chain Monte Carlo (MCMC)</div>
+        <p>Sample from complex posteriors when no closed form exists. Algorithms: Metropolis-Hastings, Gibbs sampling, Hamiltonian MC (used in PyMC, Stan).</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Bayesian Neural Networks</div>
+        <p>Place distributions over weights: p(w|D) ∝ p(D|w)p(w). Provides uncertainty estimates — crucial for safety-critical AI systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="section" id="s8">
+    <div class="section-header"><span class="section-num">8</span><span class="section-title">Information Theory</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Entropy</div>
+        <div class="formula-box">H(X) = -Σ p(x) log₂ p(x) &nbsp;&nbsp; [bits] &nbsp; or &nbsp; -Σ p(x) ln p(x) &nbsp;[nats]</div>
+        <p>Measures uncertainty / information content. Uniform distribution → maximum entropy. Used in decision tree splitting (ID3, C4.5).</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Cross-Entropy</div>
+        <div class="formula-box">H(p, q) = -Σ p(x) log q(x)</div>
+        <p>Loss function for classification in deep learning. Minimizing cross-entropy ≡ maximizing likelihood.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">KL Divergence</div>
+        <div class="formula-box">D_KL(p ‖ q) = Σ p(x) log [p(x)/q(x)] ≥ 0</div>
+        <p>Not symmetric. Measures how much q differs from p. Used in VAEs, reinforcement learning (PPO), NLP (RLHF).</p>
+        <div class="formula-box">H(p, q) = H(p) + D_KL(p ‖ q)</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Mutual Information</div>
+        <div class="formula-box">I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)</div>
+        <p>Measures statistical dependence between two variables. Used for feature selection. I(X;Y) = 0 iff X,Y independent.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Gini Impurity (Classification Trees)</div>
+        <div class="formula-box">Gini = 1 - Σᵢ pᵢ² &nbsp;&nbsp; (used in CART algorithm)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="section" id="s9">
+    <div class="section-header"><span class="section-num">9</span><span class="section-title">Dimensionality Reduction</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Principal Component Analysis (PCA)</div>
+        <p>Finds orthogonal directions of maximum variance in data. Reduces dimensions while preserving most information.</p>
+        <div class="formula-box">Steps: Standardize → Covariance matrix Σ = (1/n)XᵀX → Eigen-decomp → Sort eigenvalues → Project</div>
+        <div class="formula-box">Variance explained by component k: λₖ / Σλᵢ</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Singular Value Decomposition (SVD)</div>
+        <div class="formula-box">X = UΣVᵀ &nbsp;&nbsp; (U: left singular vectors, Σ: singular values, V: right singular vectors)</div>
+        <p>Foundation of PCA, recommender systems (matrix factorization), NLP (LSA). Truncated SVD for dimensionality reduction.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Linear Discriminant Analysis (LDA)</div>
+        <p>Supervised dimensionality reduction. Maximizes between-class to within-class variance ratio. Used in classification preprocessing.</p>
+        <div class="formula-box">J(W) = |Wᵀ S_B W| / |Wᵀ S_W W|</div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Manifold Learning Methods</div>
+        <div class="tag-row">
+          <span class="tag light">t-SNE (visualization)</span>
+          <span class="tag light">UMAP (topology)</span>
+          <span class="tag light">Isomap (geodesic)</span>
+          <span class="tag light">Autoencoder (nonlinear)</span>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Curse of Dimensionality</div>
+        <p>As dimensions increase: data becomes sparse, distances become similar, volume grows exponentially. Regularization and dimensionality reduction are essential antidotes in high-dimensional ML.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="section" id="s10">
+    <div class="section-header"><span class="section-num">10</span><span class="section-title">Model Evaluation & Selection</span></div>
+    <div class="section-body">
+      <div class="subsec">
+        <div class="subsec-title">Classification Metrics</div>
+        <table>
+          <tr><th>Metric</th><th>Formula</th><th>When to Use</th></tr>
+          <tr><td>Accuracy</td><td>(TP+TN)/(TP+TN+FP+FN)</td><td>Balanced classes</td></tr>
+          <tr><td>Precision</td><td>TP/(TP+FP)</td><td>Cost of false positives is high</td></tr>
+          <tr><td>Recall (Sensitivity)</td><td>TP/(TP+FN)</td><td>Cost of false negatives is high</td></tr>
+          <tr><td>F1 Score</td><td>2·(P·R)/(P+R)</td><td>Imbalanced classes</td></tr>
+          <tr><td>AUC-ROC</td><td>Area under ROC curve</td><td>Threshold-independent evaluation</td></tr>
+          <tr><td>MCC</td><td>(TP·TN - FP·FN)/√...</td><td>Severe class imbalance</td></tr>
+        </table>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Regression Metrics</div>
+        <div class="two-col">
+          <div class="formula-box">MAE = (1/n)Σ|yᵢ - ŷᵢ|<br>MSE = (1/n)Σ(yᵢ - ŷᵢ)²<br>RMSE = √MSE</div>
+          <div class="formula-box">R² = 1 - SS_res/SS_tot<br>Adj. R² = 1-(1-R²)(n-1)/(n-k-1)<br>MAPE = (1/n)Σ|yᵢ-ŷᵢ|/|yᵢ|·100%</div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Cross-Validation</div>
+        <div class="two-col">
+          <div class="mini-card"><div class="mini-card-title">k-Fold CV</div><p>Split data into k folds. Train on k-1, test on 1. Rotate. Average scores. Standard: k=5 or k=10.</p></div>
+          <div class="mini-card"><div class="mini-card-title">Stratified k-Fold</div><p>Maintains class proportions in each fold. Essential for imbalanced datasets.</p></div>
+          <div class="mini-card"><div class="mini-card-title">Leave-One-Out (LOO)</div><p>k = n. High variance, computationally expensive. Best for tiny datasets.</p></div>
+          <div class="mini-card"><div class="mini-card-title">Time-Series CV</div><p>Forward chaining. Training set always precedes test. Prevents data leakage.</p></div>
+        </div>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Model Selection Criteria</div>
+        <div class="formula-box">AIC = 2k - 2ln(L̂) &nbsp;&nbsp; (penalizes parameters)</div>
+        <div class="formula-box">BIC = k·ln(n) - 2ln(L̂) &nbsp;&nbsp; (stronger penalty for large n)</div>
+        <p>Lower AIC/BIC = better model. BIC prefers simpler models than AIC as n grows.</p>
+      </div>
+      <div class="subsec">
+        <div class="subsec-title">Bootstrap & Resampling</div>
+        <div class="formula-box">Draw n samples with replacement from dataset of size n. Repeat B times. Estimate statistic distribution.</div>
+        <p>Used for confidence intervals of model performance, ensemble methods (bagging), random forests.</p>
+      </div>
+      <div class="note-box"><strong>Key principle:</strong> Always evaluate on a held-out test set never seen during training or hyperparameter tuning. Use a three-way split: train / validation / test.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Statistics Notes for AI &nbsp;·&nbsp; Prepared by <strong>Sameeksha</strong> &nbsp;·&nbsp; All formulas verified for AI/ML context
+  </div>
+</div>
